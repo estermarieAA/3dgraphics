@@ -36,7 +36,7 @@ function preload() {
 
   img = loadImage('assets/marble.jpeg');
 
-   song = loadSound('assets/DWIG.mp3');
+  // song = loadSound('assets/DWIG.mp3');
 }
 
 
