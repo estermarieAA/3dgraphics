@@ -16,8 +16,8 @@ let not;
 let have;
 let tobe;
 let booring;
-let song, analyzer;
-let rms;
+//let song, analyzer;
+//let rms;
 
 function preload() {
   podium = loadModel("assets/tinker.obj",true);
@@ -36,7 +36,7 @@ function preload() {
 
   img = loadImage('assets/marble.jpeg');
 
-   song = loadSound('assets/DWIG.mp3');
+   //song = loadSound('assets/DWIG.mp3');
 }
 
 
