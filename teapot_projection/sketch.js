@@ -16,8 +16,7 @@ let not;
 let have;
 let tobe;
 let booring;
-//let song, analyzer;
-//let rms;
+
 
 function preload() {
   podium = loadModel("assets/tinker.obj",true);
@@ -36,7 +35,7 @@ function preload() {
 
   img = loadImage('assets/marble.jpeg');
 
-   //song = loadSound('assets/DWIG.mp3');
+
 }
 
 
@@ -45,16 +44,13 @@ function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   frameRate(10);
 
-    //song.loop();
-    // analyzer = new p5.Amplitude();
-    // analyzer.setInput(song);
+    
 }
 
 function draw() {
   background(10,255,10);
     lights();
-     //
-     // rms = analyzer.getLevel();
+     
 
 
     colorone=random(0,255);
