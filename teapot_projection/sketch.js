@@ -66,14 +66,19 @@ function draw() {
 }
 
 function room(){
+
+//noStroke();
+  //normalMaterial();
   //round podium
   push();
   translate(-110,300,100);
     rotateX(radians(80));
     rotateZ(radians(200));
       scale(3);
+
       fill(random(255),random(255),random(255));
-    // fill(0,255,10);
+
+    //fill(0,255,10);
     model(podium);
     pop();
 
