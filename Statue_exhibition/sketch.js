@@ -23,7 +23,7 @@ function setup(){
 function draw(){
 background(0);
 
-
+specularColor(255,0,0);
 
 lighting();
 
