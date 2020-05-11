@@ -8,9 +8,10 @@ function preload(){
 }
 
 function setup(){
+
   createCanvas(windowWidth, windowHeight, WEBGL);
 
-
+background(0);
 //
 //   // enable easy cam
 // createEasyCam();
@@ -21,7 +22,7 @@ function setup(){
 }
 
 function draw(){
-background(0);
+
 
 specularColor(255,0,0);
 
