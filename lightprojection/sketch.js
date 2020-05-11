@@ -17,12 +17,7 @@ function setup(){
 
   amp = new p5.Amplitude();
 
-  vid.loop();
-  vid.hide();
-  vid.volume(0);
 
-
- sound.loop();
 
 // screens[0].push = new screen(0,0,4,100,100,255,255,255, -300);
 
@@ -72,6 +67,16 @@ directionalLight(255, 255, 255, 0,1,-1);
   // screenone.display();
   // screenone.move();
 //  screenone.spot();
+}
+
+function mousePressed(){
+
+    vid.loop();
+    vid.hide();
+    vid.volume(0);
+
+
+   sound.loop();
 }
 
 class screen{
