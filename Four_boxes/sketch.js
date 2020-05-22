@@ -169,7 +169,7 @@ class wall{
     rotateY(radians(90));
     rotateX(radians(this.r));
     //noStroke();
-  //  texture(facade);
+    texture(facade);
     //noFill();
     box(this.w,this.h,this.d);
     pop();
