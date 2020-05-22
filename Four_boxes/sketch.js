@@ -152,7 +152,7 @@ function building(){
 }
 
 class wall{
-  constructor(w,h,d,x,y,z,r){
+  constructor(w,h,d,x,y,z,r, two){
     this.w = w;
     this.h = h;
     this.d = d;
