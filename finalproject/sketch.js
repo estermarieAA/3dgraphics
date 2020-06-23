@@ -31,17 +31,17 @@ function setup(){
 createCanvas(windowWidth, windowHeight,WEBGL);
 
 //loading enviroment models
-panopticon = loadModel("assets/tinker.obj");
-towerroom = loadModel("assets/towerroom.obj");
-towerroof = loadModel("assets/towerroof.obj");
-instagram = loadModel("assets/insttagram.obj");
-cone = loadModel("assets/cone.obj");
-door = loadModel("assets/door.obj");
-exit = loadModel("assets/exit.obj");
+panopticon = loadModel("Assets/tinker.obj");
+towerroom = loadModel("Assets/towerroom.obj");
+towerroof = loadModel("Assets/towerroof.obj");
+instagram = loadModel("Assets/insttagram.obj");
+cone = loadModel("Assets/cone.obj");
+door = loadModel("Assets/door.obj");
+exit = loadModel("Assets/exit.obj");
 
 //loading textures
-concrete = loadImage("assets/texture.png");
-insta_txt = loadImage("assets/insta_text.jpg")
+concrete = loadImage("Assets/texture.png");
+insta_txt = loadImage("Assets/insta_text.jpg")
   //
   // // enable easy cam
   // createEasyCam();
