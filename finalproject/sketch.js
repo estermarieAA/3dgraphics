@@ -27,21 +27,27 @@ let link;
 let insta_txt;
 let concrete;
 
+function preload(){
+
+  //loading enviroment models
+  panopticon = loadModel("Assets/tinker.obj");
+  towerroom = loadModel("Assets/towerroom.obj");
+  towerroof = loadModel("Assets/towerroof.obj");
+  instagram = loadModel("Assets/insttagram.obj");
+  cone = loadModel("Assets/cone.obj");
+  door = loadModel("Assets/door.obj");
+  exit = loadModel("Assets/exit.obj");
+
+  //loading textures
+  concrete = loadImage("Assets/texture.png");
+  insta_txt = loadImage("Assets/insta_text.jpg");
+
+}
+
 function setup(){
 createCanvas(windowWidth, windowHeight,WEBGL);
 
-//loading enviroment models
-panopticon = loadModel("Assets/tinker.obj");
-towerroom = loadModel("Assets/towerroom.obj");
-towerroof = loadModel("Assets/towerroof.obj");
-instagram = loadModel("Assets/insttagram.obj");
-cone = loadModel("Assets/cone.obj");
-door = loadModel("Assets/door.obj");
-exit = loadModel("Assets/exit.obj");
 
-//loading textures
-concrete = loadImage("Assets/texture.png");
-insta_txt = loadImage("Assets/insta_text.jpg")
   //
   // // enable easy cam
   // createEasyCam();
