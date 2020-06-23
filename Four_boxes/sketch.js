@@ -11,39 +11,48 @@ let facade;
 let ground;
 let outerwalls = [];
 let windows = [];
+let ceiling = [];
 let rightside_p = 125;
 let leftside_p = - rightside_p;
+
+let fourboxes;
+
+function preload() {
+  fourboxes = loadModel('assets/tinker.obj');
+    facade = loadImage("assets/texture.png");
+    facade.resize(100,100);
+}
 
 function setup(){
 
   createCanvas(windowWidth,windowHeight,WEBGL);
 
-  facade = loadImage("assets/texture.png");
+
   ground = loadImage("assets/grasstwo.jpg");
 
 
   // ortho(-width / 2, width / 2, height / 2, -height / 2, 0, 500);
 //  ortho();
 
-// // init camera
-// cam_x = 0;
-// cam_y = 1000;
-// cam_z = 300;
-// cam_dx = 0;
-// cam_dy = 0;
-// cam_dz = 0;
-// cam_xup = 0;
-// cam_yup = 0;
-// cam_zup = -10;
-// pan = -1.60;
-// tilt = -0.18;
-// updateCamCenter();
+// init camera
+cam_x = 0;
+cam_y = 1000;
+cam_z = 300;
+cam_dx = 0;
+cam_dy = 0;
+cam_dz = 0;
+cam_xup = 0;
+cam_yup = 0;
+cam_zup = -10;
+pan = -1.60;
+tilt = -0.18;
+updateCamCenter();
 
-// enable easy cam
-createEasyCam();
-
-// suppress right-click context menu
-document.oncontextmenu = function() { return false; }
+// // enable easy cam
+// createEasyCam();
+//
+// // suppress right-click context menu
+// document.oncontextmenu = function() { return false; }
 
 
 }
@@ -52,6 +61,21 @@ function draw(){
   background(255);
 
 lights();
+
+push();
+scale(5);
+rotateZ(radians(90));
+//normalMaterial();
+//fill(200);
+noStroke();
+
+ambientLight(50);
+//pointLight(250, 250, 250, 100, 100, 30);
+ specularMaterial(90);
+model(fourboxes);
+pop();
+
+//scale(0.2);
 
   push();
   noStroke();
@@ -63,14 +87,14 @@ lights();
   // box(100)
   pop();
 
-  building();
+  //building();
 
-  // // camera set-up
-  // camera(cam_x, cam_y, cam_z, cam_cx, cam_cy, cam_cz, cam_xup, cam_yup, cam_zup);
-  // perspective(radians(60), width / height, 1, 10000);
-  // // handle user input
-  // if (keyIsPressed) handleUserInput();
-  // //orbitControl();
+  // camera set-up
+  camera(cam_x, cam_y, cam_z, cam_cx, cam_cy, cam_cz, cam_xup, cam_yup, cam_zup);
+  perspective(radians(60), width / height, 1, 10000);
+  // handle user input
+  if (keyIsPressed) handleUserInput();
+  //orbitControl();
 
 }
 
@@ -85,6 +109,12 @@ function building(){
   push();
   for (var i = 0; i < windows.length; i ++ ) { // Whatever the length of that array, update and display all of the objects.
     windows[i].display();
+  }
+  pop();
+
+  push();
+  for (var i = 0; i < ceiling.length; i ++ ) { // Whatever the length of that array, update and display all of the objects.
+    ceiling[i].display();
   }
   pop();
 
@@ -145,6 +175,36 @@ function building(){
   outerwalls.push(new wall(20, 100,10,50,400-5,50/2+85,90));
     outerwalls.push(new wall(20, 100,10,50,400-5,50/2-15,90));
 
+  //First floor housebox
+  outerwalls.push(new wall(70, 250,10,0,194,125,90));
+
+  //lower windows
+  windows.push(new windowframe(90, 56,10,-118+56/2,194,90/2,90));
+  outerwalls.push(new wall(90, 4,10,-118+56+2,194,90/2,90));
+  windows.push(new windowframe(90, 56,10,-118+4+56+56/2,194,90/2,90));
+
+  outerwalls.push(new wall(90, 4,10,0,194,90/2,90));
+
+  windows.push(new windowframe(90, 56,10,118-56/2,194,90/2,90));
+  outerwalls.push(new wall(90, 4,10,118-56-2,194,90/2,90));
+  windows.push(new windowframe(90, 56,10,118-56-56/2-4,194,90/2,90));
+
+  //top windows
+  windows.push(new windowframe(60, 56,10,-118+56/2,194,190,90));
+  outerwalls.push(new wall(60, 4,10,-118+56+2,194,190,90));
+  windows.push(new windowframe(60, 56,10,-118+4+56+56/2,194,190,90));
+
+  outerwalls.push(new wall(60, 4,10,0,194,190,90));
+
+  windows.push(new windowframe(60, 56,10,118-56/2,194,190,90));
+  outerwalls.push(new wall(60, 4,10,118-56-2,194,190,90));
+  windows.push(new windowframe(60, 56,10,118-56-56/2-4,194,190,90));
+
+//ceiling
+  ceiling.push(new ceilingobject(260,50,10,0,175,225,0))
+  ceiling.push(new ceilingobject(260,50,10,0,-75,205,0))
+
+
   //windows on ground floor
   // push();
   // windows.push(new windowframe(80, 80,10,0,400,120/2,90));
@@ -160,6 +220,7 @@ class wall{
     this.y = y;
     this.z = z;
     this.r = r;
+
   }
 
   display(){
@@ -168,12 +229,44 @@ class wall{
     translate(this.x,this.y,this.z);
     rotateY(radians(90));
     rotateX(radians(this.r));
+    // rotateZ(radians(this.r_two));
     //noStroke();
-    texture(facade);
+    //texture(facade);
     //noFill();
     box(this.w,this.h,this.d);
     pop();
   }
+}
+
+class ceilingobject{
+  constructor(w,h,d,x,y,z,r, two){
+    this.w = w;
+    this.h = h;
+    this.d = d;
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.r = r;
+
+  }
+
+  display(){
+    //wall
+    push();
+    translate(this.x,this.y,this.z);
+    //rotateY(radians(90));
+    rotateX(radians(this.r));
+    // rotateZ(radians(this.r_two));
+    //noStroke();
+    //texture(facade);
+    //noFill();
+    box(this.w,this.h,this.d);
+    pop();
+  }
+}
+
+class inner_Wall{
+
 }
 
 class windowframe{
@@ -196,81 +289,81 @@ class windowframe{
     //noStroke();
     //texture(facade);
     //noFill();
-    fill(0,0,255);
+    fill(0,0,255,1);
     box(this.w,this.h,this.d);
     pop();
   }
 }
-// function handleUserInput() {
-//  let s = 3; // moving speed
-//  switch (keyCode) {
-//  case UP_ARROW: // move forward
-//  cam_x += s * cam_dx;
-//  cam_y += s * cam_dy;
-//  break;
-//  case DOWN_ARROW: // move backward
-//  cam_x -= s * cam_dx;
-//  cam_y -= s * cam_dy;
-//  break;
-//  case LEFT_ARROW: // pan to the left
-//  pan -= 0.02;
-//  break;
-//  case RIGHT_ARROW: // pan to the right
-//  pan += 0.02;
-//  break;
-//  }
-//
-//  switch (key) {
-//  case 'a':
-//  tilt += 0.02;
-//  if (tilt > HALF_PI) tilt = HALF_PI;
-//  break;
-//  case 'z':
-//  tilt -= 0.02;
-//  if (tilt < -HALF_PI) tilt = -HALF_PI;
-//  break;
-//  case ',':
-//  cam_y+=30;
-//  cam_z+=10;
-//  break;
-//  case '.':
-//  cam_y-=30;
-//  cam_z-=10;
-//  break;
-//  }
-//  updateCamCenter();
-// }
-//
-//
-// function updateCamCenter() {
-//  // computer camera direction
-//
-//  // tilt matrix (rotate about y)
-//  // | dx | = | cos(tilt) 0 -sin(tilt) | | 1 |
-//  // | dy | = | 0 1 0 | x | 0 |
-//  // | dz | = | sin(tilt) 0 cos(tilt) | | 0 |
-//  //cam_dx = cos(tilt);
-//  //cam_dy = 0;
-//  //cam_dz = sin(tilt);
-//
-//  // pan matrix (rotate about z)
-//  // | dx | = | cos(pan) -sin(pan) 0 | | 1 |
-//  // | dy | = | sin(pan) cos(pan) 0 | x | 0 |
-//  // | dz | = | 0 0 1 | | 0 |
-//  //cam_dx = cos(pan);
-//  //cam_dy = sin(pan);
-//  //cam_dz = 0;
-//
-//  // pan matrix x tilt matrix
-//  // | dx | = | cos(pan) -sin(pan) 0 | | cos(tilt) |
-//  // | dy | = | sin(pan) cos(pan) 0 | x | 0 |
-//  // | dz | = | 0 0 1 | | sin(tilt) |
-//
-//  cam_dx = cos(pan) * cos(tilt);
-//  cam_dy = sin(pan) * cos(tilt);
-//  cam_dz = sin(tilt);
-//  // compute scene center position
-//  cam_cx = cam_x + cam_dx;
-//  cam_cy = cam_y + cam_dy;
-//  cam_cz = cam_z + cam_dz;
-// }
+function handleUserInput() {
+ let s = 3; // moving speed
+ switch (keyCode) {
+ case UP_ARROW: // move forward
+ cam_x += s * cam_dx;
+ cam_y += s * cam_dy;
+ break;
+ case DOWN_ARROW: // move backward
+ cam_x -= s * cam_dx;
+ cam_y -= s * cam_dy;
+ break;
+ case LEFT_ARROW: // pan to the left
+ pan -= 0.02;
+ break;
+ case RIGHT_ARROW: // pan to the right
+ pan += 0.02;
+ break;
+ }
+
+ switch (key) {
+ case 'a':
+ tilt += 0.02;
+ if (tilt > HALF_PI) tilt = HALF_PI;
+ break;
+ case 'z':
+ tilt -= 0.02;
+ if (tilt < -HALF_PI) tilt = -HALF_PI;
+ break;
+ case ',':
+ cam_y+=30;
+ cam_z+=10;
+ break;
+ case '.':
+ cam_y-=30;
+ cam_z-=10;
+ break;
+ }
+ updateCamCenter();
+}
+
+
+function updateCamCenter() {
+ // computer camera direction
+
+ // tilt matrix (rotate about y)
+ // | dx | = | cos(tilt) 0 -sin(tilt) | | 1 |
+ // | dy | = | 0 1 0 | x | 0 |
+ // | dz | = | sin(tilt) 0 cos(tilt) | | 0 |
+ //cam_dx = cos(tilt);
+ //cam_dy = 0;
+ //cam_dz = sin(tilt);
+
+ // pan matrix (rotate about z)
+ // | dx | = | cos(pan) -sin(pan) 0 | | 1 |
+ // | dy | = | sin(pan) cos(pan) 0 | x | 0 |
+ // | dz | = | 0 0 1 | | 0 |
+ //cam_dx = cos(pan);
+ //cam_dy = sin(pan);
+ //cam_dz = 0;
+
+ // pan matrix x tilt matrix
+ // | dx | = | cos(pan) -sin(pan) 0 | | cos(tilt) |
+ // | dy | = | sin(pan) cos(pan) 0 | x | 0 |
+ // | dz | = | 0 0 1 | | sin(tilt) |
+
+ cam_dx = cos(pan) * cos(tilt);
+ cam_dy = sin(pan) * cos(tilt);
+ cam_dz = sin(tilt);
+ // compute scene center position
+ cam_cx = cam_x + cam_dx;
+ cam_cy = cam_y + cam_dy;
+ cam_cz = cam_z + cam_dz;
+}

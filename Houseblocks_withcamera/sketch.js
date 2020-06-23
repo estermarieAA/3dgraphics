@@ -31,8 +31,8 @@ function setup(){
 
   // init camera
   cam_x = 0;
-  cam_y = 500;
-  cam_z = 300;
+  cam_y = 800;
+  cam_z = 700;
   cam_dx = 0;
   cam_dy = 0;
   cam_dz = 0;
@@ -40,7 +40,7 @@ function setup(){
   cam_yup = 0;
   cam_zup = -10;
   pan = -1.60;
-  tilt = -0.18;
+  tilt = -0.5;
   updateCamCenter();
 
 
@@ -81,7 +81,7 @@ function draw(){
   fill(255,0,0,50);
   box(100,100,2);
   pop();
-  // 
+  //
   // console.log("pan=", pan);
   // console.log("tilt=", tilt);
 

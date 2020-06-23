@@ -44,13 +44,13 @@ function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   frameRate(10);
 
-    
+
 }
 
 function draw() {
   background(10,255,10);
     lights();
-     
+
 
 
     colorone=random(0,255);
@@ -87,6 +87,7 @@ function room(){
      rot+= 0.2;
      fill(random(255),random(255),random(255));
   // fill(0,255,10);
+
     model(teapot);
   pop();
 
@@ -96,8 +97,9 @@ function room(){
   scale(6);
   rotateX(radians(80))
   rotateZ(radians(180));
-  fill(random(255),random(255),random(255));
+  //fill(random(255),random(255),random(255));
   // fill(0,255,10);
+    texture(img)
   model(podiumtwo);
   pop();
 
